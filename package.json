@@ -6,10 +6,13 @@
     "react-scripts": "0.9.5"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-localstorage": "^0.3.1",
-    "react-router-dom": "^4.0.0"
+    "react-router-dom": "^4.0.0",
+    "react-select": "^3.0.4",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

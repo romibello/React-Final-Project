@@ -2,10 +2,26 @@ import React, { Component } from 'react';
 
 class AboutView extends Component {
     render() {
+        
         return (
-            <article className="about-view">
-                About View
-            </article>
+            <div className="container">
+                <div className="row">
+                    <div className="col">
+                        <div className="card">
+                            this is a card
+                        </div>
+                        <div className="card">
+                            this is a card
+                        </div>
+                        <div className="card">
+                            this is a card
+                        </div>
+                    </div>
+                    <div className="col">
+
+                    </div>
+                </div>
+            </div>
         );
     }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from '../../assets/descarga.png';
-
+import './home.css';
+import Navbar from '../../components/Navbar';
 
 class HomeView extends Component {
     constructor(props){
@@ -29,21 +29,16 @@ class HomeView extends Component {
 
     render() {
         return (
-            <div className="container">
-                <header className="navbar bg-dark navbar-dark row">
-                    <div className="col-3"></div>
-                    <div className="col"> <img src={logo} alt="logo" className="img-fluid"></img> </div>
-                    <div className="col-4"> <i className="fa fa-search fa-2x fa-lg" hidden/></div>
-                </header>
-                <div className="container">
+            <div className="container-fluid" id="all">
+                <Navbar></Navbar>
+                <div className="container-fluid">
                     <div className="card">
                         <div className="card-head">
                             <h1>Welcome to Spotisearch</h1>
                         </div>
+                        <div className="card-body">
+                        <p>Search your favourite songs over spotify, just enter an artist's name in the following search box and enjoy!</p>
                         <form className="card card-sm">
-                            <div className="card-head">
-                            <p>Search your favourite songs over spotify, just enter an artist's name in the following search box and enjoy!</p>
-                            </div>
                             <div className="card-body row no-gutters align-items-center">
                                 <div className="col-auto">
                                     <i className="fas fa-search h4 text-body"></i>
@@ -53,9 +48,10 @@ class HomeView extends Component {
                                 </div>
                             </div>
                         </form>
+                        </div>
                     </div>
                 </div>
-                <footer className="navbar bg-dark navbar-dark">
+                <footer className="navbar bg-dark row">
                     <div className="col-3"></div>
                     <div className="col"> </div>
                     <div className="col-4"> </div>
@@ -65,5 +61,6 @@ class HomeView extends Component {
         );
     }
 }
+
 
 export default HomeView;

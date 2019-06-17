@@ -1,35 +1,56 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {SELECT_ELEMENT} from '../constants/action-type';
 import { Link } from 'react-router-dom';
 
 
-class cards extends Component{
+class Cards extends Component{
+	constructor(props){
+		super(props);
+	}
+
+
 	render(){
-		console.log("en la func");
-		console.log(this.props);
-		let optional = "https://t4.ftcdn.net/jpg/01/39/16/63/240_F_139166369_NdTDXc0lM57N66868lC66PpsaMkFSwaf.jpg";
-		const mySearch = this.props.list.items.map((item,i)=>{
-			console.log("en la func");
-			console.log(item);
+		console.log(this.props.searchResult);
+		const mySearch = this.props.searchResult.map((item,i)=>{
 			return(
-				<div className="card" key={i}>
-					<Link to="/">
-					<div className="row">
+				<div className="col-sm-6 " key={i}>
+					<Link to={ {pathname: this.props.direc, state: { artistId: item.id, artistImg: item.img, artistName: item.name, artisGenre: item.genres }} }>
+					<div className="card shadow p-3 mb-5 bg-white rounded" >
+						<div className="row">
 							<div className="col">
-								<img src={ item.images.length > 0? item.images[0].url : optional} alt="img" className="img-fluid"></img>
+								<img src={item.img} alt="img" className="img-fluid"></img>
 							</div>
-							<div className="col-8">
+							<div className="col-6">
 								<h4>{item.name}</h4>
+								<p>{item.release}</p>
 							</div>
+						</div>
 					</div>
 					</Link>
 				</div>
-			)})
+			)
+		});
 		return (
-			<div className="container">
+			<div className="row">
 				{mySearch}
 			</div>
 		)
 	}
 }
 
-export default cards;
+const mapStateToProps = (state) => {
+	return {
+	  textToSearch: state.textToSearch,
+	  searchResult: state.searchResult,
+	  direc: state.direc
+	}
+}
+	
+const mapDispatchToProps = (dispatch) => {
+	return {
+	  selectElement: (payload) => dispatch({type: SELECT_ELEMENT, payload:payload})
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cards);

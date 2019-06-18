@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './home.css';
 import Navbar from '../../components/Navbar';
+import { connect } from 'react-redux';
+import FavoritesList from '../../components/FavoritesList'
 
 class HomeView extends Component {
     constructor(props){
@@ -49,6 +51,9 @@ class HomeView extends Component {
                             </div>
                         </form>
                         </div>
+                        <div className="card-Footer">
+                            {this.props.favoritesId.length ? <FavoritesList props={{favorites: this.props.favorites, favoritesId: this.props.favoritesId}} />: null}
+                        </div>
                     </div>
                 </div>
                 <footer className="navbar bg-dark row">
@@ -63,4 +68,14 @@ class HomeView extends Component {
 }
 
 
-export default HomeView;
+const mapStateToProps = (state) => {
+    return {
+      favoritesId: state.favoriteTracksIds,
+      favorites: state.favoriteTracks
+    }
+  }
+  const mapDispatchToProps = (dispatch) => {
+    return {
+    }
+  }
+  export default connect(mapStateToProps, mapDispatchToProps)(HomeView);

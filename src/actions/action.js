@@ -1,11 +1,11 @@
 import {GET_ARTIST} from "../constants/action-type";
 import {GET_LIST} from "../constants/action-type";
 import {GET_ALBUM} from "../constants/action-type";
+import {ADD_FAVORITE} from "../constants/action-type";
+import {REMOVE_FAVORITE} from "../constants/action-type";
 
-
+/****************************************************Actions*********************************************************************************/
 export function getArtistsAction(data) {
-  console.log("data");
-  console.log(data);
   let resp = {};
   resp = data.response.artists.items.map((item) => {
     if(item.images.length > 0){
@@ -32,8 +32,6 @@ export function getArtistsAction(data) {
 }
 
 export function getAlbumsAction(data) {
-  console.log("album");
-  console.log(data);
   let result = data.response.items.filter((item) => {
     return (item.available_markets.includes("AR"));
   }).map((item) => {
@@ -54,8 +52,6 @@ export function getAlbumsAction(data) {
 }
 
 export function getSongs(data) {
-  console.log("estoy en songs");
-  console.log(data);
   let resp = {};
   resp = data.response.items.map((item) => {
     return {
@@ -73,6 +69,8 @@ export function getSongs(data) {
   }
 }
 
+/****************************************************Actions*********************************************************************************/
+/****************************************************Fetch*********************************************************************************/
 
 function getSearch(url,query,op){
   return async dispatch => {
@@ -81,7 +79,7 @@ function getSearch(url,query,op){
       const response = await fetch(url, {
         method: 'GET',
         headers: {
-          'Authorization': 'Bearer BQAFrlZ3xaVvDK5OsgbxNtnK9Y5kxhkCAQ-an7nNuMSPJSF7FRUjb75ufFhSzzmJXC-h1LxEvjvCf-JuOgQ',
+          'Authorization': 'Bearer BQDJYmuMC0uqhkuSH1CjKJwx2FdlhHdKYHhegdTEQA1-BC_9a9eJrN1AFLCOwRnv3R3oBALqkgm7JZGv8gs',
         }
       });
       const responseJson = await response.json();
@@ -99,7 +97,8 @@ function getSearch(url,query,op){
     }
   }
 }
-
+/****************************************************Fetch*********************************************************************************/
+/****************************************************Gets*********************************************************************************/
 
 export function getList(query) {
   const searchQuery = `search?q=${query}&type=artist&limit=10`;
@@ -119,3 +118,24 @@ export function getAlbum(payload) {
   const op=3;
   return getSearch(url,payload,op);
 }
+/****************************************************Gets*********************************************************************************/
+/****************************************************Favorites Actions********************************************************************/
+
+export function addFavorite(data) {
+  return {
+    type: ADD_FAVORITE,
+    payload: {
+      id: data.id,
+      trackData: data.trackData
+    }
+  }
+}
+
+export function removeFavorite(id) {
+  return {
+    type: REMOVE_FAVORITE,
+    payload: id
+  }
+}
+
+/****************************************************Favorites Actions********************************************************************/

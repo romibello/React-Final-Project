@@ -1,46 +1,80 @@
 import React, { Component } from 'react';
 import {getAlbum} from '../actions/action';
-import Audio from './Audio';
+import {REMOVE_FAVORITE, ADD_FAVORITE} from '../constants/action-type'
 import { connect } from "react-redux";
+import Track from './Track';
 
 class Album extends Component {
   constructor(props){
 		super(props);
-		this.playAudio=this.playAudio.bind(this);
-		this.pauseAudio=this.pauseAudio.bind(this);		
+		this.state={
+			audio: new Audio()
+		}
+		this.handleFavorite = this.handleFavorite.bind(this);
+    this.handleAudio = this.handleAudio.bind(this);	
 	}
-		
-	playAudio() {
-    this.refs.audRef.play();
-  }
-  
-  pauseAudio() {
-    this.refs.audRef.pause();
-  }
 	
   componentDidMount() {
 		const artistId = this.props.location.state.artistId;
     this.props.getAlbum(artistId);
 	}
+		
+	handleFavorite(trackData) {
+    if (this.props.favorites.includes(trackData.id)) {
+      this.props.removeFavorite(trackData.id);
+    }
+    else {
+      let data = {
+        id: trackData.id,
+        trackData: {
+          name: trackData.name,
+          artist: trackData.artist,
+          albumImg: this.props.location.state.albumImg,
+          albumName: this.props.location.state.albumName
+        }
+			}
+			console.log("agregando");
+      this.props.addFavorite(data);
+    }
+  }
+
+  handleAudio(previewUrl) {
+    if (previewUrl) {
+      if (this.state.audio.src !== previewUrl) {
+        this.state.audio.pause();
+      }
+      if (this.state.audio.paused) {
+        this.state.audio.src = previewUrl;
+        this.state.audio.load();
+        this.state.audio.play();
+      } else {
+        this.state.audio.pause();
+      }
+    }
+  }
 
 	render(){
 		const mySearch = this.props.songs.map((item,i)=>{
-		console.log("previews");
-			console.log(item.preview);
 			return(
-					<div className="card" key={i}>
-						<div className="row">
-							<div className="col">
-								<h4>{item.name} {i}</h4>						
-							</div>
-							<Audio song={item.preview} playAudio={this.playAudio} pauseAudio={this.pauseAudio}></Audio>
-						</div>
-					</div>
+				<Track song={item} key={i} onFavoriteClick={this.handleFavorite} onSongClick={this.handleAudio} favorite={this.props.favorites.includes(item.id)} />
+					
 		)
 	});
 		return(
-			<div className="container">
-				{mySearch}
+			<div className="table-container">
+				<div className="table-responsive">
+					<table className="table table-striped table-hover table-dark table-sm">
+					<thead className="thead-light">
+						<tr>
+						<th scope="col">CD1</th>
+						<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{mySearch}
+					</tbody>
+					</table>
+				</div>
 			</div>
 		)
 
@@ -50,13 +84,16 @@ class Album extends Component {
 const mapStateToProps = (state) => {
   return {
     searchResult: state.searchResult,
-    songs: state.songs
+		songs: state.songs,
+		favorites: state.favoriteTracksIds
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAlbum: (query) => dispatch(getAlbum(query))
+		getAlbum: (query) => dispatch(getAlbum(query)),
+		removeFavorite: (id) => { dispatch({ type: REMOVE_FAVORITE, payload: id})},
+    addFavorite: (id) => { dispatch({ type: ADD_FAVORITE, payload: id})}
   }
 }
 

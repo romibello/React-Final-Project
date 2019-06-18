@@ -1,4 +1,4 @@
-import { GET_ALBUM, GET_ARTIST, GET_LIST, SELECT_ELEMENT } from "../constants/action-type";
+import { GET_ALBUM, GET_ARTIST, GET_LIST, SELECT_ELEMENT, ADD_FAVORITE, REMOVE_FAVORITE } from "../constants/action-type";
 
 const initialState = {
     searchResult: {items:[]},
@@ -7,7 +7,9 @@ const initialState = {
     redirect: false,
     direc:"/",
     artistSelected:'',
-    songs: []
+    songs: [],
+    favoriteTracksIds: [],
+    favoriteTracks: null
 };
 
 
@@ -41,6 +43,28 @@ function appReducer(state = initialState, action) {
         direc: "/album"
       };
 
+    case ADD_FAVORITE:
+      let favorites = {...state.favoriteTracks};
+      favorites[action.payload.id] = action.payload.trackData;
+      return {
+        ...state,
+        favoriteTracksIds: [...state.favoriteTracksIds, action.payload.id],
+        favoriteTracks: favorites
+      }
+    
+    case REMOVE_FAVORITE:
+      let newFavoritesId = state.favoriteTracksIds.filter((item) => {
+        return item !== action.payload;
+      });
+      let newFavorites = {...state.favoriteTracks};
+      delete newFavorites[action.payload];
+      return {
+        ...state,
+        favoriteTracks: newFavorites,
+        favoriteTracksIds: newFavoritesId
+      }
+    
+
     case SELECT_ELEMENT:
       return {
         ...state,
@@ -52,36 +76,6 @@ function appReducer(state = initialState, action) {
       return state;
   }
 
-  if (action.type === GET_ALBUM) {
-    let newId = state.addingId + 1;
-    let movs = {...state.movies};
-    movs[newId] = action.payload;
-    let newState = {
-      ...state,
-      movies: movs,
-      moviesId: [...state.moviesId, newId],
-      addingId: newId
-    }
-    return newState;
-  }
-  
-
-  if (action.type === GET_ARTIST) {
-    let newMoviesId = state.moviesId.filter((item) => {
-      return item !== action.id;
-    });
-    let copyMovies = {...state.movies};
-    delete copyMovies[action.id];
-    let newState = {
-      ...state,
-      movies: copyMovies,
-      moviesId: newMoviesId
-    }
-    return newState;
-  }
-
-
-    return state;
 }
 
 export default appReducer;

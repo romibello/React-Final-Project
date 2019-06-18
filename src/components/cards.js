@@ -21,7 +21,7 @@ class Cards extends Component{
 							<div className="col">
 								<img src={item.img} alt="img" className="img-fluid"></img>
 							</div>
-							<div className="col-6">
+							<div className="text-center col-6">
 								<h4>{item.name}</h4>
 								<p>{item.release}</p>
 							</div>

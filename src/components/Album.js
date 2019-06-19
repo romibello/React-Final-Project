@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {getAlbum} from '../actions/action';
-import {REMOVE_FAVORITE, ADD_FAVORITE} from '../constants/action-type'
+import {getAlbum,addFavorite, removeFavorite} from '../actions/action';
 import { connect } from "react-redux";
 import Track from './Track';
+import Breadcrumb from './Breadcrumb';
 
 class Album extends Component {
   constructor(props){
@@ -11,7 +11,7 @@ class Album extends Component {
 			audio: new Audio()
 		}
 		this.handleFavorite = this.handleFavorite.bind(this);
-    this.handleAudio = this.handleAudio.bind(this);	
+		this.handleAudio = this.handleAudio.bind(this);
 	}
 	
   componentDidMount() {
@@ -25,15 +25,14 @@ class Album extends Component {
     }
     else {
       let data = {
-        id: trackData.id,
+		id: trackData.id,
         trackData: {
-          name: trackData.name,
-          artist: trackData.artist,
-          albumImg: this.props.location.state.albumImg,
-          albumName: this.props.location.state.albumName
+		  name: trackData.name,
+		  artist:this.props.location.state.artistName,
+          albumImg: this.props.location.state.artistImg,
+          albumName: this.props.location.state.artistName
         }
 			}
-			console.log("agregando");
       this.props.addFavorite(data);
     }
   }
@@ -51,7 +50,8 @@ class Album extends Component {
         this.state.audio.pause();
       }
     }
-  }
+	}
+	
 
 	render(){
 		const mySearch = this.props.songs.map((item,i)=>{
@@ -61,19 +61,38 @@ class Album extends Component {
 		)
 	});
 		return(
-			<div className="table-container">
-				<div className="table-responsive">
-					<table className="table table-striped table-hover table-dark table-sm">
-					<thead className="thead-light">
-						<tr>
-						<th scope="col">CD1</th>
-						<th scope="col"></th>
-						</tr>
-					</thead>
-					<tbody>
-						{mySearch}
-					</tbody>
-					</table>
+			<div className="container">
+				<div className="card" >
+					<div className="card-head">
+						<div className="row">
+							<div className="col">
+								<img src={this.props.location.state.artistImg} alt="img" className="img-fluid"></img>
+							</div>
+							<div className="text-center col-6">
+								<h4>{this.props.location.state.artistName}</h4>
+								<p>{this.props.location.state.artisGenre}</p>
+							</div>
+						</div>
+						<Breadcrumb state={this.props.location.state.artistName}></Breadcrumb>
+					</div>
+					<div className="card-body">
+						<div className="table-container">
+							<div className="table-responsive">
+								<table className="table table-striped table-hover table-dark table-sm">
+									<thead className="thead-light">
+										<tr>
+										<th scope="col">Album</th>
+										<th scope="col"></th>
+										</tr>
+									</thead>
+									<tbody>
+										{mySearch}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					
+					</div>
 				</div>
 			</div>
 		)
@@ -85,6 +104,7 @@ const mapStateToProps = (state) => {
   return {
     searchResult: state.searchResult,
 		songs: state.songs,
+		artist: state.artistSelected,
 		favorites: state.favoriteTracksIds
   }
 }
@@ -92,8 +112,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
 		getAlbum: (query) => dispatch(getAlbum(query)),
-		removeFavorite: (id) => { dispatch({ type: REMOVE_FAVORITE, payload: id})},
-    addFavorite: (id) => { dispatch({ type: ADD_FAVORITE, payload: id})}
+		removeFavorite: (id) => { dispatch(removeFavorite(id))},
+    addFavorite: (id) => { dispatch(addFavorite(id))}
   }
 }
 

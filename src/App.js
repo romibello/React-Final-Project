@@ -22,8 +22,9 @@ class App extends Component {
 
   handleSearch(dataSearch){
     this.props.getList(dataSearch);
-    
   }
+
+  
 
   render() {
     if (this.props.redirect) {

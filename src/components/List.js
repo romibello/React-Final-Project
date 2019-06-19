@@ -2,18 +2,36 @@ import React, { Component } from 'react';
 import '../index.css';
 import {connect} from 'react-redux';
 import Cards from './Cards';
+import {getList} from '../actions/action';
+import {CHANGE_REDIRECT} from '../constants/action-type';
+import BreadcrumbHome from './BreadcrumbHome';
+import SearchBarContainer from './SearchBarContainer';
 
 
 class List extends Component {
 	constructor(props){
 		super(props);
+		this.handleClick = this.handleClick.bind(this);
 	}
-    
+	
+	componentDidMount(){
+		if(this.props.textToSearch !== undefined){
+			console.log("deberia cargar");
+			this.props.getList(this.props.textToSearch);
+		}
+	}
+
+	handleClick(e){
+		e.preventDefault();
+		this.props.changeRedirect();
+	}
+
 
 	render(){
 		return(
 			<div className="container">
 				<div className="row">
+				<SearchBarContainer></SearchBarContainer>
 					<div className="container">
 						<div className="card">
 							<div className="card-head">
@@ -21,6 +39,11 @@ class List extends Component {
 							</div>
 							<div className="card-body">
 								<p> you are currently searching: {this.props.textToSearch}</p>
+								<nav aria-label="breadcrumb">
+									<ol className="breadcrumb">
+										<BreadcrumbHome></BreadcrumbHome>
+									</ol>
+								</nav>
 							</div>
 						</div>
 					</div>
@@ -33,9 +56,15 @@ class List extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-	  textToSearch: state.textToSearch,
-	  searchResult: state.searchResult
+	  textToSearch: state.textToSearch
 	}
 }
-  
-export default connect(mapStateToProps)(List);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+		getList: (query) => dispatch(getList(query)),
+		changeRedirect: () => { dispatch({ type: CHANGE_REDIRECT, payload: false})}
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(List);

@@ -1,17 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {SELECT_ELEMENT} from '../constants/action-type';
 import { Link } from 'react-router-dom';
 
 
 class Cards extends Component{
-	constructor(props){
-		super(props);
-	}
-
 
 	render(){
-		console.log(this.props.searchResult);
 		const mySearch = this.props.searchResult.map((item,i)=>{
 			return(
 				<div className="col-sm-6 " key={i}>
@@ -46,11 +40,6 @@ const mapStateToProps = (state) => {
 	  direc: state.direc
 	}
 }
-	
-const mapDispatchToProps = (dispatch) => {
-	return {
-	  selectElement: (payload) => dispatch({type: SELECT_ELEMENT, payload:payload})
-	}
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cards);
+
+export default connect(mapStateToProps, null)(Cards);

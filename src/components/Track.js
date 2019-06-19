@@ -3,12 +3,10 @@ import React from 'react'
 
 
 function Track(props) {
-	console.log(props);
 	function handleFavoriteClick() {
 		let trackData = {
 		id: props.song.id,
-		name: props.song.name,
-		/*artist: props.song.artists[0].name*/
+		name: props.song.name
 		}
 		props.onFavoriteClick(trackData);
 	}
@@ -25,7 +23,7 @@ function Track(props) {
 		<tr>
 		<td className="td-name" onClick={()=>{props.onSongClick(props.song.preview)}}>{props.song.name}</td>
 		<td className="td-fav text-right">
-			<a onClick={handleFavoriteClick} data-toggle="tooltip" data-placement="right" title={tooltipTitle} >
+			<a  onClick={handleFavoriteClick} data-toggle="tooltip" data-placement="right" title={tooltipTitle} >
 			<i className={`${favorite ? 'fas fa-star' : 'far fa-star'}`}></i>
 			</a>
 		</td>

@@ -1,10 +1,11 @@
-import { GET_ALBUM, GET_ARTIST, GET_LIST, SELECT_ELEMENT, ADD_FAVORITE, REMOVE_FAVORITE } from "../constants/action-type";
+import { GET_ALBUM, GET_ARTIST, GET_LIST, ADD_FAVORITE, REMOVE_FAVORITE, CHANGE_REDIRECT, SAVE_TEXT } from "../constants/action-type";
 
 const initialState = {
     searchResult: {items:[]},
     initialResult: {items:[]},
     textToSearch:'',
     redirect: false,
+    redirectHome:false,
     direc:"/",
     artistSelected:'',
     songs: [],
@@ -17,6 +18,7 @@ const initialState = {
 function appReducer(state = initialState, action) {
 
   switch (action.type){
+    
     case GET_LIST:
     return{
       ...state,
@@ -24,12 +26,10 @@ function appReducer(state = initialState, action) {
       initialResult: action.payload.searchResult,
       textToSearch: action.payload.textToSearch,
       redirect: true,
-      direc: "/artists"
+      direc: "artistList/artists"
     };
 
     case GET_ALBUM:
-        console.log("FETCH TRACKS REDUCER");
-        console.log(action.payload);
       return {
         ...state,
         searchResult: action.payload.res,
@@ -40,7 +40,8 @@ function appReducer(state = initialState, action) {
       return {
         ...state,
         searchResult: action.payload.artistResult,
-        direc: "/album"
+        artistSelected: action.payload.data,
+        direc: "/artistList/artists/album"
       };
 
     case ADD_FAVORITE:
@@ -64,15 +65,20 @@ function appReducer(state = initialState, action) {
         favoriteTracksIds: newFavoritesId
       }
     
-
-    case SELECT_ELEMENT:
-      return {
-        ...state,
-        artistSelected: action.payload
+    case CHANGE_REDIRECT:
+    return {
+      ...state,
+      redirect: false,
+      redirectHome:true
+    }
+    case SAVE_TEXT:
+      return{
+        textToSearch: action.payload.res
       }
+    
 
     default:
-      // ALWAYS have a default case in a reducer
+      //  default case in a reducer
       return state;
   }
 

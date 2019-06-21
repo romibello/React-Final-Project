@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 
 /******************************component*****************************************/
@@ -15,23 +14,10 @@ import {getList} from './actions/action';
 
 class App extends Component {
   constructor(props) {
-    super(props);
-    
-    this.handleSearch = this.handleSearch.bind(this);
+    super(props);    
   }
-
-  handleSearch(dataSearch){
-    this.props.getList(dataSearch);
-  }
-
-  
 
   render() {
-    if (this.props.redirect) {
-      return <Redirect to={{ pathname:"/artistList"}} />
-    }
-    
-    
     return (
       <HomeView dff={this.handleSearch}/>
     );

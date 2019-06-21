@@ -1,7 +1,8 @@
 import React from 'react';
 
 function FavoritesList(props) {
-  let tracks = props.props.favoritesId.map((item,i) => {
+  let tracks;
+  if(props.props.favoritesId.length >0){ tracks= props.props.favoritesId.map((item,i) => {
     let favItem = props.props.favorites[item];
     return (
       <div className="col-sm-6 " key={i}>
@@ -19,7 +20,7 @@ function FavoritesList(props) {
         </div>
       </div>
     )
-  });
+  });}
   return (
     <div className="row">
         {tracks}

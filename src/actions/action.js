@@ -27,7 +27,9 @@ export function makeApiFetch(url, callback) {
 }
 export function getArtistsAction(data) {
   let resp = {};
+  let respId =[];
   resp = data.response.artists.items.map((item) => {
+    respId.push(item.id);
     if(item.images.length > 0){
       return {
         id: item.id,
@@ -46,7 +48,8 @@ export function getArtistsAction(data) {
     type: GET_LIST,
     payload: {
       searchResult: resp,
-      textToSearch: data.search
+      textToSearch: data.search,
+      respId: respId
     }
   }
 }
@@ -72,6 +75,7 @@ export function getAlbumsAction(data) {
 }
 
 export function getSongs(data) {
+  console.log("getSong")
   let resp = {};
   resp = data.response.items.map((item) => {
     return {
@@ -108,13 +112,15 @@ export function changeRedirect() {
 /****************************************************Fetch*********************************************************************************/
 
 function getSearch(url,query,op){
+  console.log("search");
+  
   return async dispatch => {
     try {
       
       const response = await fetch(url, {
         method: 'GET',
         headers: {
-          'Authorization': 'Bearer BQD0Uobaf8HgLUDJrE7348Np5FM8_I17qjN8tETP4Ob5cWa_br7aNiDt1hcXeQCqt5xcqFKfxRqf2kYVUVQ',
+          'Authorization': 'Bearer BQA9R27GhQm4a7KgFnu2NJosiKJ2iSaBtIiQ7hhz-6YExylt7f--sOPzhEogKGv9Y8wYjgQEanUFFel7elA',
         }
       });
       const responseJson = await response.json();
@@ -150,6 +156,8 @@ export function getArtistsAlbum(query) {
 }
 
 export function getAlbum(payload) {
+  console.log("mateeenmee.. get songs");
+  
   const url = `https://api.spotify.com/v1/albums/${payload}/tracks`;
   const op=3;
   return getSearch(url,payload,op);

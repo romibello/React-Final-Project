@@ -5,33 +5,34 @@ import Cards from './Cards';
 import {getList} from '../actions/action';
 import {CHANGE_REDIRECT} from '../constants/action-type';
 import BreadcrumbHome from './BreadcrumbHome';
-import SearchBarContainer from './SearchBarContainer';
 
 
 class List extends Component {
 	constructor(props){
 		super(props);
-		this.handleClick = this.handleClick.bind(this);
+		
 	}
 	
 	componentDidMount(){
 		if(this.props.textToSearch !== undefined){
-			console.log("deberia cargar");
+			console.log("yo deberia de cargar");
 			this.props.getList(this.props.textToSearch);
 		}
 	}
 
-	handleClick(e){
-		e.preventDefault();
-		this.props.changeRedirect();
+	componentDidUpdate(prevProps){	
+		if (this.props.textToSearch !== prevProps.textToSearch) {
+      		this.props.getList(this.props.textToSearch);
+    	}
 	}
 
 
 	render(){
 		return(
+			<React.Fragment>
 			<div className="container">
 				<div className="row">
-				<SearchBarContainer></SearchBarContainer>
+				
 					<div className="container">
 						<div className="card">
 							<div className="card-head">
@@ -50,13 +51,15 @@ class List extends Component {
 				</div>
 				<Cards></Cards>
 			</div>
+			</React.Fragment>
 		)
 	}
 }
 
 const mapStateToProps = (state) => {
 	return {
-	  textToSearch: state.textToSearch
+		textToSearch: state.textToSearch,
+		searchResult: state.searchResult
 	}
 }
 

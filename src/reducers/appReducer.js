@@ -30,6 +30,8 @@ function appReducer(state = initialState, action) {
     };
 
     case GET_ALBUM:
+      console.log("canciones carajo");
+      console.log(action);
       return {
         ...state,
         searchResult: action.payload.res,
@@ -44,7 +46,7 @@ function appReducer(state = initialState, action) {
         direc: "/artistList/artists/album"
       };
 
-    case ADD_FAVORITE:
+    case ADD_FAVORITE:     
       let favorites = {...state.favoriteTracks};
       favorites[action.payload.id] = action.payload.trackData;
       return {

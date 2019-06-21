@@ -16,11 +16,18 @@ class Album extends Component {
 	
   componentDidMount() {
 		const artistId = this.props.location.state.artistId;
-    this.props.getAlbum(artistId);
+    	this.props.getAlbum(artistId);
 	}
-		
+	
+
+	componentDidUpdate(prevProps){
+		if (this.props.location.state.artistId !== prevProps.location.state.artistId) {
+      		this.props.getAlbum(this.props.location.state.artistId);
+    	}
+	}
+
 	handleFavorite(trackData) {
-    if (this.props.favorites.includes(trackData.id)) {
+    if (this.props.favorites.includes(trackData.id) && typeof this.props.favorites !== undefined) {
       this.props.removeFavorite(trackData.id);
     }
     else {
@@ -54,13 +61,20 @@ class Album extends Component {
 	
 
 	render(){
-		const mySearch = this.props.songs.map((item,i)=>{
+		let mySearch;
+		if(this.props.songs){mySearch = this.props.songs.map((item)=>{
 			return(
-				<Track song={item} key={i} onFavoriteClick={this.handleFavorite} onSongClick={this.handleAudio} favorite={this.props.favorites.includes(item.id)} />
+				<Track song={item} key={item.id}
+				onFavoriteClick={this.handleFavorite}
+				 onSongClick={this.handleAudio}
+				 />
 					
 		)
-	});
+	});}else{
+		mySearch= <tr> <td> <p>  </p> </td> </tr>
+	}
 		return(
+			<React.Fragment>
 			<div className="container">
 				<div className="card" >
 					<div className="card-head">
@@ -95,6 +109,7 @@ class Album extends Component {
 					</div>
 				</div>
 			</div>
+			</React.Fragment>
 		)
 
 	}

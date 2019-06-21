@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import BreadcrumbHome from './BreadcrumbHome';
 import BreadcrumbList from './BreadcrumbList';
 
-class List extends Component {
+class Artists extends Component {
 	componentDidMount() {
 		this.props.getArtistsAlbum(this.props.location.state);
 	}
@@ -55,4 +55,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default connect(mapStateToProps, mapDispatchToProps)(Artists);

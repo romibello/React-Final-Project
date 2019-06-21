@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 class Cards extends Component{
 
 	render(){
-		const mySearch = this.props.searchResult.map((item,i)=>{
+		let mySearch;
+		if (this.props.searchResult){mySearch = this.props.searchResult.map((item)=>{
 			return(
-				<div className="col-sm-6 " key={i}>
+				<div className="col-sm-6 " key={item.id}>
 					<Link to={ {pathname: this.props.direc, state: { artistId: item.id, artistImg: item.img, artistName: item.name, artisGenre: item.genres }} }>
 					<div className="card shadow p-3 mb-5 bg-white rounded" >
 						<div className="row">
@@ -24,7 +25,7 @@ class Cards extends Component{
 					</Link>
 				</div>
 			)
-		});
+		});}
 		return (
 			<div className="row">
 				{mySearch}

@@ -11,7 +11,11 @@ class Breadcrumb extends Component{
 				<ol className="breadcrumb">
 					<BreadcrumbHome></BreadcrumbHome>
 					<li className="breadcrumb-item"><Link to="/"><span>Artists</span></Link></li>
-					<li className="breadcrumb-item"><Link to={ {pathname:"/artistList/artists", state: { artistId: this.props.artist.artistId, artistImg: this.props.artist.artistImg, artistName: this.props.artist.artistName, artisGenre: this.props.artist.artisGenre }} }><span>Artist</span></Link></li>
+					<li className="breadcrumb-item"><Link to={ {pathname:"/artistList/artists",
+					 state: { artistId: this.props.artist.artistId, 
+					 artistImg: this.props.artist.artistImg, 
+					 artistName: this.props.artist.artistName, 
+					 artisGenre: this.props.artist.artisGenre }} }><span>Artist</span></Link></li>
 					<li className="breadcrumb-item active" aria-current="page"><span> {this.props.state} </span></li>
 				</ol>
 			</nav>

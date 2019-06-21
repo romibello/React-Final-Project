@@ -75,7 +75,6 @@ export function getAlbumsAction(data) {
 }
 
 export function getSongs(data) {
-  console.log("getSong")
   let resp = {};
   resp = data.response.items.map((item) => {
     return {
@@ -112,7 +111,6 @@ export function changeRedirect() {
 /****************************************************Fetch*********************************************************************************/
 
 function getSearch(url,query,op){
-  console.log("search");
   
   return async dispatch => {
     try {
@@ -156,7 +154,6 @@ export function getArtistsAlbum(query) {
 }
 
 export function getAlbum(payload) {
-  console.log("mateeenmee.. get songs");
   
   const url = `https://api.spotify.com/v1/albums/${payload}/tracks`;
   const op=3;

@@ -30,8 +30,6 @@ function appReducer(state = initialState, action) {
     };
 
     case GET_ALBUM:
-      console.log("canciones carajo");
-      console.log(action);
       return {
         ...state,
         searchResult: action.payload.res,

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import '../index.css';
+import '../../index.css';
 import {connect} from 'react-redux';
-import Cards from './Cards';
-import {getList} from '../actions/action';
-import {CHANGE_REDIRECT} from '../constants/action-type';
-import BreadcrumbHome from './BreadcrumbHome';
+import Cards from '../../components/artistContainer/cards';
+import {getList} from '../../actions/action';
+import {CHANGE_REDIRECT} from '../../constants/action-type';
+import BreadcrumbHome from '../../components/BreadCrumb/BreadcrumbHome';
 
 
 class List extends Component {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {getAlbum,addFavorite, removeFavorite} from '../actions/action';
+import {getAlbum,addFavorite, removeFavorite} from '../../actions/action';
 import { connect } from "react-redux";
-import Track from './Track';
-import Breadcrumb from './Breadcrumb';
+import Track from '../../components/track/track';
+import Breadcrumb from '../../components/BreadCrumb/Breadcrumb';
 
 class Album extends Component {
   constructor(props){

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import './home.css';
+import './home.scss';
 import { connect } from 'react-redux';
-import FavoritesList from '../../components/FavoritesList';
-import SearchBarContainer from '../../components/SearchBarContainer';
+import FavoritesList from '../../components/favoritesArtists/FavoritesList';
+import SearchBarContainer from '../../components/searchBar/SearchBarContainer';
+import {WELCOME_TITLE, WELCOME_TEXT} from '../../constanst/constants';
 
 class HomeView extends Component {
 	constructor(props){
@@ -12,22 +13,13 @@ class HomeView extends Component {
 	render() {
 		return (
 			<React.Fragment>
-			<div className="container-fluid">
-				<div className="container-fluid">
-					<div className="card">
-						<div className="card-head">
-							<h1>Welcome to Spotisearch</h1>
-						</div>
-						<div className="card-body">
-						<p>Search your favourite songs over spotify, just enter an artist's name in the following search box and enjoy!</p>
-						<SearchBarContainer></SearchBarContainer>
-						</div>
-						<div className="card-Footer">
-							{typeof this.props.favoritesId !== 'undefined' ? <FavoritesList props={{favorites: this.props.favorites, favoritesId: this.props.favoritesId}} /> : null}
-						</div>
-					</div>
+			<div className="homeContainer">
+				<h1>{WELCOME_TITLE}</h1>
+				<p>{WELCOME_TEXT}</p>
+				<SearchBarContainer></SearchBarContainer>
+				<div className="">
+					{typeof this.props.favoritesId !== 'undefined' ? <FavoritesList props={{favorites: this.props.favorites, favoritesId: this.props.favoritesId}} /> : null}
 				</div>
-				<footer className="navbar bg-dark row"></footer>
 			</div>
 			</React.Fragment>
 		);

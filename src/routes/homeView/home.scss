@@ -1,0 +1,15 @@
+@import "../../variables.scss";
+
+.homeContainer{
+    background-color: $primary-color;
+    margin-top: $margin-LL;
+
+    h1,p {
+        font-family: $font-family-primary;
+    }
+
+    p {
+        padding: $padding-L;
+        font-size: $large-size;
+    }
+}

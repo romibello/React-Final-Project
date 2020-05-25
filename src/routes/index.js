@@ -1,10 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import List from '../components/List';
-import artists from '../components/Artists';
+//@routes
+import List from './list/List';
+import artists from './artist/artists';
 import App from '../App'
-import Album from '../components/Album';
-import Layout from '../components/Layout';
+import Album from '../routes/Album/album';
+import Layout from '../components/layout/Layout';
 import NotFound from '../pages/NotFound';
 
 const getRoutes = function() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SearchBar from './SearchBar';
-import { saveText } from '../actions/action';
+import { saveText } from '../../actions/action';
 import { connect } from "react-redux";
 import { Redirect } from 'react-router';
 

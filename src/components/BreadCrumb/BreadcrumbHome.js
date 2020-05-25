@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
-import {CHANGE_REDIRECT} from '../constants/action-type';
+import {CHANGE_REDIRECT} from '../../constants/action-type';
 import { Redirect } from 'react-router-dom';
 
 class BreadcrumbHome extends Component{

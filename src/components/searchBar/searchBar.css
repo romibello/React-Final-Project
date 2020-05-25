@@ -1,0 +1,27 @@
+.searchBarContainer{
+    display: grid;
+    align-content: center;
+    grid-template-columns: 25% 75%;
+    padding-top: 15px;
+}
+
+.searchBarContainer div{
+    padding-top: 25px;
+}
+
+.searchBarContainer .btn-search{
+    background-color: white;
+    border-radius: 20%;
+    border-style: solid;
+    border-bottom-color: gray;
+    border-left-color: gray;
+}
+
+.searchBarContainer .icono{
+    padding-left: 40px;
+}
+
+.searchBarContainer .bar{
+    padding-right: 20px;
+}
+

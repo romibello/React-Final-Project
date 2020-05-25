@@ -1,0 +1,28 @@
+@import "../../variables.scss";
+
+.HeaderContainer{
+    background-color: $secondary-color;
+    
+
+    &_rowCont{
+        padding-left: $padding-xv;
+
+        &_imgContainer{
+            float: left;
+            margin-top: $margin-XX;
+            margin-bottom: $margin-XX;
+        }
+    
+        &_SearchBarContainer{
+            float: right;
+            margin-top: $margin-XX;
+        }
+    }
+
+}
+
+
+.img{
+    margin-top: $margin-XX;
+    margin-bottom: $margin-XX;
+}

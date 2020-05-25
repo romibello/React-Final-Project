@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Cards from './Cards';
-import {getArtistsAlbum} from '../actions/action';
+import Cards from '../../components/artistContainer/cards';
+import {getArtistsAlbum} from '../../actions/action';
 import { connect } from "react-redux";
-import BreadcrumbHome from './BreadcrumbHome';
-import BreadcrumbList from './BreadcrumbList';
+import BreadcrumbHome from '../../components/BreadCrumb/BreadcrumbHome';
+import BreadcrumbList from '../../components/BreadCrumb/BreadcrumbList';
 
 class Artists extends Component {
 	componentDidMount() {
